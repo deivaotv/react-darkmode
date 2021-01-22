@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Navigation, Menu, Item } from "./styled";
 import Switch from '@material-ui/core/Switch';
+import {setDarkMode} from "../../actions";
 
 import { connect } from 'react-redux';
+import {bindActionCreators} from "redux";
 
 class Navbar extends Component {
     constructor(props) {
@@ -13,10 +15,6 @@ class Navbar extends Component {
             darkMode: false,
             checked: false
         }
-    }
-
-    componentDidMount() {
-        console.log(this.props)
     }
 
     handleChange = (e) => {
@@ -31,10 +29,13 @@ class Navbar extends Component {
             const color = "#000"
             const textColor = "#fff"
             this.setState({ color, textColor, darkMode: true })
+            this.props.setDarkMode(true)
         } else {
             const color = "#fff"
             const textColor = "#000"
             this.setState({ color, textColor, darkMode: false })
+            this.props.setDarkMode(false)
+            console.log(this.props)
         }
     }
 
@@ -66,4 +67,11 @@ const mapStateToProps = store => ({
     checked: store.darkMode
 });
 
-export default connect(mapStateToProps)(Navbar);
+const mapDispatchToProps = dispatch => {
+    return {
+        setDarkMode: () => dispatch(setDarkMode()),
+        dispatch
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Navbar);
