@@ -11,7 +11,7 @@ export const darkMode = (state = initialState, action) => {
         case DARKMODE_UPDATE:
             return {
                 ...state,
-                checked: action.checked,
+                checked,
             };
         default:
             return state;
